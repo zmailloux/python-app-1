@@ -1,0 +1,46 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: python-app-1
+  labels:
+    app: python-app-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-app-1
+  template:
+    metadata:
+      labels:
+        app: python-app-1
+    spec:
+      containers:
+      - name: python-app-1
+        image: gcr.io/kubernetes-testing-237121/python-app-1
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: python-app-1-svc
+spec:
+  selector:
+    app: python-app-1
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+  #type: NodePort
+
+#---
+#apiVersion: extensions/v1beta1
+#kind: Ingress
+#metadata:
+#  name: python-app-1-ingress
+#  annotations:
+#    kubernetes.io/ingress.global-static-ip-name: "kube-ip-goes-here"
+#spec:
+#  backend:
+#    serviceName: python-app-1-svc
+#    servicePort: 5000

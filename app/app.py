@@ -1,4 +1,4 @@
-from flask import Flask,render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for
 import hashlib
 import flask_login
 import socket
@@ -9,6 +9,16 @@ login_manager.init_app(app)
 
 app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
 users = {'admin': {'password': '69bc0cc4b50ac0342dfcecdde7091587'}}
+
+
+@app.route("/ip")
+def ip():
+    try:
+        host_name = socket.gethostname()
+        host_ip = socket.gethostbyname(host_name)
+        return render_template('ip.html', hostname=host_name, ip=host_ip)
+    except:
+        return render_template('error.html')
 
 
 class User(flask_login.UserMixin):
