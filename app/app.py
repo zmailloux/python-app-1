@@ -20,12 +20,12 @@ def ip():
     except:
         return render_template('error.html')
 
-# @app.route("/test/<text>", methods=['GET'])
-# def page_one(text):
-#     try:
-#         return render_template('test.html', text=text)
-#     except:
-#         return render_template('error.html')
+@app.route("/test/<text>", methods=['GET'])
+def page_one(text):
+    try:
+        return render_template('test.html', text=text)
+    except:
+        return render_template('error.html')
 
 
 class User(flask_login.UserMixin):
